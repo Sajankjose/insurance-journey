@@ -1,0 +1,399 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Norka Sherpa – Insurance Journey</title>
+<style>
+  :root{
+    --geojit-blue:#005BAC;
+    --geojit-dark:#0B2F5B;
+    --geojit-orange:#F58220;
+    --soft-blue:#EEF6FC;
+    --soft-orange:#FFF4EA;
+    --text:#17324D;
+    --muted:#6F8090;
+    --line:#DCE6EF;
+    --white:#FFFFFF;
+    --bg:#F7F9FC;
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    font-family:Inter, "Segoe UI", Arial, sans-serif;
+    background:var(--bg);
+    color:var(--text);
+  }
+
+  .page{
+    max-width:1480px;
+    margin:0 auto;
+    padding:28px;
+  }
+
+  header{
+    text-align:center;
+    margin-bottom:24px;
+  }
+  header h1{
+    margin:0 0 6px;
+    color:var(--geojit-dark);
+    font-size:34px;
+    font-weight:750;
+  }
+  header p{
+    margin:0;
+    color:var(--muted);
+    font-size:15px;
+  }
+
+  /* Journey */
+  .journey{
+    display:grid;
+    grid-template-columns:repeat(8,1fr);
+    gap:8px;
+    margin-bottom:22px;
+  }
+  .step{
+    position:relative;
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:15px 11px;
+    min-height:82px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+  }
+  .step small{
+    color:var(--muted);
+    font-size:10px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    margin-bottom:5px;
+  }
+  .step strong{
+    font-size:14px;
+    line-height:1.25;
+    color:var(--geojit-dark);
+  }
+  .step:not(:last-child)::after{
+    content:"›";
+    position:absolute;
+    right:-11px;
+    top:50%;
+    transform:translateY(-52%);
+    color:var(--geojit-blue);
+    font-size:22px;
+    font-weight:800;
+    z-index:3;
+  }
+  .step.external{
+    background:var(--soft-orange);
+    border-color:#F7D9BE;
+  }
+  .step.external small{color:#A65C15}
+  .step.external strong{color:#7A4515}
+
+  .main{
+    background:var(--white);
+    border:1px solid var(--line);
+    border-radius:16px;
+    overflow:hidden;
+  }
+
+  .main-head{
+    padding:15px 18px;
+    border-bottom:1px solid var(--line);
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:16px;
+  }
+  .main-head h2{
+    margin:0;
+    font-size:18px;
+    color:var(--geojit-dark);
+  }
+  .main-head span{
+    color:var(--muted);
+    font-size:12px;
+  }
+
+  .selector{
+    display:grid;
+    grid-template-columns:1fr 1.2fr 1fr;
+    min-height:330px;
+  }
+  .col{
+    padding:18px;
+    border-right:1px solid var(--line);
+  }
+  .col:last-child{border-right:none}
+
+  .label{
+    font-size:11px;
+    font-weight:800;
+    color:var(--muted);
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    margin-bottom:10px;
+  }
+
+  .type-list,
+  .category-list,
+  .company-list{
+    display:grid;
+    gap:9px;
+  }
+
+  button.option{
+    width:100%;
+    border:1px solid var(--line);
+    background:#fff;
+    color:var(--text);
+    border-radius:10px;
+    padding:12px 13px;
+    text-align:left;
+    cursor:pointer;
+    font-size:14px;
+    font-weight:650;
+    transition:.16s ease;
+  }
+  button.option:hover{
+    border-color:#A8C9E4;
+    background:#FAFCFE;
+  }
+  button.option.active{
+    background:var(--soft-blue);
+    border-color:#8FBDE0;
+    color:var(--geojit-dark);
+  }
+
+  .type-list button.option.active{
+    border-left:4px solid var(--geojit-blue);
+  }
+
+  .company-list button.option.active{
+    background:var(--soft-orange);
+    border-color:#F0C69E;
+    color:#7A4515;
+  }
+
+  .handoff{
+    margin-top:14px;
+    padding:13px;
+    border-radius:10px;
+    background:var(--soft-orange);
+    border:1px solid #F7D9BE;
+    display:none;
+  }
+  .handoff.show{display:block}
+  .handoff strong{
+    display:block;
+    color:#7A4515;
+    margin-bottom:4px;
+    font-size:14px;
+  }
+  .handoff p{
+    margin:0;
+    color:#8A6649;
+    font-size:12px;
+    line-height:1.45;
+  }
+
+  .path{
+    margin-top:14px;
+    padding:11px 13px;
+    background:#FAFCFE;
+    border:1px solid var(--line);
+    border-radius:10px;
+    color:var(--muted);
+    font-size:12px;
+  }
+  .path b{color:var(--geojit-dark)}
+
+  .footer{
+    margin-top:12px;
+    text-align:center;
+    color:var(--muted);
+    font-size:11px;
+  }
+
+  @media(max-width:1100px){
+    .journey{grid-template-columns:repeat(4,1fr)}
+    .step:nth-child(4)::after{display:none}
+    .selector{grid-template-columns:1fr}
+    .col{border-right:none;border-bottom:1px solid var(--line)}
+    .col:last-child{border-bottom:none}
+  }
+
+  @media(max-width:650px){
+    .page{padding:14px}
+    header h1{font-size:26px}
+    .journey{grid-template-columns:repeat(2,1fr)}
+    .step:nth-child(even)::after{display:none}
+    .main-head{align-items:flex-start;flex-direction:column}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header>
+    <h1>Norka Sherpa – Insurance User Journey</h1>
+    <p>Select insurance type → choose category → select insurer → continue on insurer DIY platform</p>
+  </header>
+
+  <section class="journey" aria-label="Journey">
+    <div class="step"><small>Norka Sherpa</small><strong>Login</strong></div>
+    <div class="step"><small>Norka Sherpa</small><strong>Insurance</strong></div>
+    <div class="step"><small>Norka Sherpa</small><strong>Select Type</strong></div>
+    <div class="step"><small>Norka Sherpa</small><strong>Select Category</strong></div>
+    <div class="step"><small>Norka Sherpa</small><strong>Select Company</strong></div>
+    <div class="step external"><small>Insurer DIY</small><strong>Profile & KYC</strong></div>
+    <div class="step external"><small>Insurer DIY</small><strong>Payment</strong></div>
+    <div class="step external"><small>Insurer DIY</small><strong>Confirmation</strong></div>
+  </section>
+
+  <section class="main">
+    <div class="main-head">
+      <h2>Explore the Insurance Journey</h2>
+      <span>Choose from left to right</span>
+    </div>
+
+    <div class="selector">
+
+      <div class="col">
+        <div class="label">1 · Insurance Type</div>
+        <div id="typeList" class="type-list"></div>
+      </div>
+
+      <div class="col">
+        <div class="label">2 · Insurance Category</div>
+        <div id="categoryList" class="category-list"></div>
+      </div>
+
+      <div class="col">
+        <div class="label">3 · Insurance Company</div>
+        <div id="companyList" class="company-list"></div>
+
+        <div id="handoff" class="handoff">
+          <strong id="handoffTitle">Continue to insurer DIY website</strong>
+          <p>Detailed profile, plan selection, KYC and payment are completed on the selected insurer's platform.</p>
+        </div>
+
+        <div id="path" class="path"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="footer">
+    Norka Sherpa helps users discover and select insurance; purchase completion happens on the insurer's DIY platform.
+  </div>
+
+</div>
+
+<script>
+const insuranceData = {
+  "Health": {
+    "Health Insurance": ["ICICI Lombard", "Bajaj Allianz"],
+    "Critical Illness": ["ICICI Lombard"]
+  },
+  "General": {
+    "Motor Insurance": ["ICICI Lombard", "Bajaj Allianz"],
+    "Travel Insurance": ["ICICI Lombard", "Bajaj Allianz"],
+    "Cyber Security Insurance": ["ICICI Lombard", "Bajaj Allianz"],
+    "Home Insurance": ["ICICI Lombard", "Bajaj Allianz"],
+    "Fire Insurance": ["Bajaj Allianz"],
+    "Pet Insurance": ["ICICI Lombard"],
+    "Weather Insurance": ["Bajaj Allianz"]
+  },
+  "Term / Life": {
+    "Term Insurance": ["Bajaj Life"],
+    "Saving Plan": ["Bajaj Life"],
+    "Annuity Plan": ["Bajaj Life"],
+    "Pension Plan": ["ICICI Prudential Life"],
+    "ULIP Plan": ["ICICI Prudential Life"]
+  }
+};
+
+let selectedType = "Health";
+let selectedCategory = "Health Insurance";
+let selectedCompany = null;
+
+const typeList = document.getElementById("typeList");
+const categoryList = document.getElementById("categoryList");
+const companyList = document.getElementById("companyList");
+const handoff = document.getElementById("handoff");
+const handoffTitle = document.getElementById("handoffTitle");
+const path = document.getElementById("path");
+
+function option(text, active, click){
+  const b = document.createElement("button");
+  b.className = "option" + (active ? " active" : "");
+  b.textContent = text;
+  b.onclick = click;
+  return b;
+}
+
+function renderTypes(){
+  typeList.innerHTML = "";
+  Object.keys(insuranceData).forEach(type=>{
+    typeList.appendChild(option(type, type === selectedType, ()=>{
+      selectedType = type;
+      selectedCategory = Object.keys(insuranceData[type])[0];
+      selectedCompany = null;
+      renderAll();
+    }));
+  });
+}
+
+function renderCategories(){
+  categoryList.innerHTML = "";
+  Object.keys(insuranceData[selectedType]).forEach(category=>{
+    categoryList.appendChild(option(category, category === selectedCategory, ()=>{
+      selectedCategory = category;
+      selectedCompany = null;
+      renderAll();
+    }));
+  });
+}
+
+function renderCompanies(){
+  companyList.innerHTML = "";
+  handoff.classList.remove("show");
+
+  insuranceData[selectedType][selectedCategory].forEach(company=>{
+    companyList.appendChild(option(company, company === selectedCompany, ()=>{
+      selectedCompany = company;
+      renderCompanies();
+      handoffTitle.textContent = `Continue with ${company} →`;
+      handoff.classList.add("show");
+      renderPath();
+    }));
+  });
+
+  renderPath();
+}
+
+function renderPath(){
+  path.innerHTML =
+    `<b>${selectedType}</b> → <b>${selectedCategory}</b>` +
+    (selectedCompany ? ` → <b>${selectedCompany}</b> → Insurer DIY` : ` → Select company`);
+}
+
+function renderAll(){
+  renderTypes();
+  renderCategories();
+  renderCompanies();
+}
+
+renderAll();
+</script>
+</body>
+</html>
