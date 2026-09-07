@@ -4,349 +4,381 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Norka Sherpa – Insurance Journey</title>
+<title>Norka Sherpa – Insurance User Journey</title>
 <style>
-  :root{
-    --geojit-blue:#005BAC;
-    --geojit-dark:#0B2F5B;
-    --geojit-orange:#F58220;
-    --soft-blue:#EEF6FC;
-    --soft-orange:#FFF4EA;
-    --text:#17324D;
-    --muted:#6F8090;
-    --line:#DCE6EF;
-    --white:#FFFFFF;
-    --bg:#F7F9FC;
-  }
+:root {
+  --blue:#005BAC;
+  --blue-dark:#0B2F5B;
+  --orange:#F58220;
+  --blue-soft:#EEF6FC;
+  --orange-soft:#FFF4E9;
+  --ink:#17324D;
+  --muted:#6C7F91;
+  --line:#DDE7EF;
+  --bg:#F7F9FC;
+  --white:#FFFFFF;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  font-family:Inter,"Segoe UI",Arial,sans-serif;
+  color:var(--ink);
+  background:var(--bg);
+}
+.page{
+  max-width:1480px;
+  margin:auto;
+  padding:26px;
+}
+header{
+  text-align:center;
+  margin-bottom:22px;
+}
+header h1{
+  margin:0 0 6px;
+  color:var(--blue-dark);
+  font-size:32px;
+}
+header p{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+}
 
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:Inter, "Segoe UI", Arial, sans-serif;
-    background:var(--bg);
-    color:var(--text);
-  }
+/* journey */
+.journey{
+  display:grid;
+  grid-template-columns:repeat(8,1fr);
+  gap:8px;
+  margin-bottom:18px;
+}
+.jstep{
+  position:relative;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:11px;
+  padding:13px 10px;
+  min-height:72px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.jstep small{
+  font-size:10px;
+  font-weight:800;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  margin-bottom:4px;
+}
+.jstep strong{
+  color:var(--blue-dark);
+  font-size:13px;
+  line-height:1.25;
+}
+.jstep:not(:last-child)::after{
+  content:"›";
+  position:absolute;
+  right:-11px;
+  top:50%;
+  transform:translateY(-53%);
+  color:var(--blue);
+  font-size:21px;
+  font-weight:900;
+  z-index:3;
+}
+.jstep.external{
+  background:var(--orange-soft);
+  border-color:#F1D6BE;
+}
+.jstep.external small{color:#A55B19}
+.jstep.external strong{color:#7B4516}
 
-  .page{
-    max-width:1480px;
-    margin:0 auto;
-    padding:28px;
-  }
+/* selection area */
+.card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+}
+.card-head{
+  padding:14px 18px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  justify-content:space-between;
+  gap:14px;
+  align-items:center;
+}
+.card-head h2{
+  margin:0;
+  color:var(--blue-dark);
+  font-size:18px;
+}
+.card-head span{
+  color:var(--muted);
+  font-size:12px;
+}
+.selector{
+  display:grid;
+  grid-template-columns:.75fr 1fr 1fr;
+}
+.col{
+  padding:17px;
+  min-height:285px;
+  border-right:1px solid var(--line);
+}
+.col:last-child{border-right:none}
+.label{
+  font-size:10px;
+  font-weight:800;
+  letter-spacing:.07em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+.list{display:grid;gap:8px}
+.option{
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:10px;
+  padding:11px 12px;
+  text-align:left;
+  color:var(--ink);
+  font-size:13px;
+  font-weight:650;
+  cursor:pointer;
+  transition:.16s ease;
+}
+.option:hover{
+  border-color:#A8C9E4;
+  background:#FBFDFF;
+}
+.option.active{
+  background:var(--blue-soft);
+  border-color:#94BFE1;
+  color:var(--blue-dark);
+}
+.type-option.active{
+  border-left:4px solid var(--blue);
+}
+.company-option.active{
+  background:var(--orange-soft);
+  border-color:#F1C59E;
+  color:#7A4517;
+}
 
-  header{
-    text-align:center;
-    margin-bottom:24px;
-  }
-  header h1{
-    margin:0 0 6px;
-    color:var(--geojit-dark);
-    font-size:34px;
-    font-weight:750;
-  }
-  header p{
-    margin:0;
-    color:var(--muted);
-    font-size:15px;
-  }
+.path{
+  margin-top:11px;
+  padding:10px 12px;
+  border-radius:9px;
+  background:#FAFCFE;
+  color:var(--muted);
+  font-size:11px;
+}
+.path b{color:var(--blue-dark)}
 
-  /* Journey */
-  .journey{
-    display:grid;
-    grid-template-columns:repeat(8,1fr);
-    gap:8px;
-    margin-bottom:22px;
-  }
-  .step{
-    position:relative;
-    background:var(--white);
-    border:1px solid var(--line);
-    border-radius:12px;
-    padding:15px 11px;
-    min-height:82px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-  }
-  .step small{
-    color:var(--muted);
-    font-size:10px;
-    font-weight:700;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-    margin-bottom:5px;
-  }
-  .step strong{
-    font-size:14px;
-    line-height:1.25;
-    color:var(--geojit-dark);
-  }
-  .step:not(:last-child)::after{
-    content:"›";
-    position:absolute;
-    right:-11px;
-    top:50%;
-    transform:translateY(-52%);
-    color:var(--geojit-blue);
-    font-size:22px;
-    font-weight:800;
-    z-index:3;
-  }
-  .step.external{
-    background:var(--soft-orange);
-    border-color:#F7D9BE;
-  }
-  .step.external small{color:#A65C15}
-  .step.external strong{color:#7A4515}
+/* detail */
+.details{
+  display:none;
+  margin-top:16px;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:16px;
+  overflow:hidden;
+}
+.details.show{display:block}
+.details-top{
+  padding:15px 18px;
+  display:flex;
+  justify-content:space-between;
+  gap:16px;
+  align-items:center;
+  border-bottom:1px solid var(--line);
+}
+.details-top .eyebrow{
+  color:var(--orange);
+  font-size:10px;
+  text-transform:uppercase;
+  font-weight:900;
+  letter-spacing:.07em;
+}
+.details-top h3{
+  margin:4px 0 0;
+  color:var(--blue-dark);
+  font-size:18px;
+}
+.handoff-pill{
+  background:var(--orange-soft);
+  border:1px solid #F0D1B4;
+  color:#88501E;
+  padding:8px 11px;
+  border-radius:999px;
+  font-size:11px;
+  font-weight:750;
+  white-space:nowrap;
+}
+.products{
+  padding:16px 18px 18px;
+  display:grid;
+  gap:12px;
+}
+.policy{
+  border:1px solid var(--line);
+  border-radius:12px;
+  padding:14px;
+  background:#FCFDFE;
+}
+.policy-title{
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  align-items:flex-start;
+  margin-bottom:9px;
+}
+.policy-title strong{
+  color:var(--blue-dark);
+  font-size:14px;
+}
+.policy-title span{
+  color:var(--muted);
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.05em;
+  font-weight:800;
+}
+.features{
+  margin:0;
+  padding-left:18px;
+  color:#536A7D;
+  font-size:12px;
+  line-height:1.45;
+}
+.features li{margin:4px 0}
+.features li.extra{display:none}
+.features.expanded li.extra{display:list-item}
+.more{
+  margin-top:9px;
+  border:0;
+  background:none;
+  color:var(--blue);
+  padding:0;
+  font-size:11px;
+  font-weight:800;
+  cursor:pointer;
+}
+.source-note{
+  padding:10px 18px 14px;
+  color:var(--muted);
+  font-size:10px;
+  border-top:1px solid var(--line);
+}
 
-  .main{
-    background:var(--white);
-    border:1px solid var(--line);
-    border-radius:16px;
-    overflow:hidden;
-  }
-
-  .main-head{
-    padding:15px 18px;
-    border-bottom:1px solid var(--line);
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    gap:16px;
-  }
-  .main-head h2{
-    margin:0;
-    font-size:18px;
-    color:var(--geojit-dark);
-  }
-  .main-head span{
-    color:var(--muted);
-    font-size:12px;
-  }
-
-  .selector{
-    display:grid;
-    grid-template-columns:1fr 1.2fr 1fr;
-    min-height:330px;
-  }
-  .col{
-    padding:18px;
-    border-right:1px solid var(--line);
-  }
-  .col:last-child{border-right:none}
-
-  .label{
-    font-size:11px;
-    font-weight:800;
-    color:var(--muted);
-    letter-spacing:.06em;
-    text-transform:uppercase;
-    margin-bottom:10px;
-  }
-
-  .type-list,
-  .category-list,
-  .company-list{
-    display:grid;
-    gap:9px;
-  }
-
-  button.option{
-    width:100%;
-    border:1px solid var(--line);
-    background:#fff;
-    color:var(--text);
-    border-radius:10px;
-    padding:12px 13px;
-    text-align:left;
-    cursor:pointer;
-    font-size:14px;
-    font-weight:650;
-    transition:.16s ease;
-  }
-  button.option:hover{
-    border-color:#A8C9E4;
-    background:#FAFCFE;
-  }
-  button.option.active{
-    background:var(--soft-blue);
-    border-color:#8FBDE0;
-    color:var(--geojit-dark);
-  }
-
-  .type-list button.option.active{
-    border-left:4px solid var(--geojit-blue);
-  }
-
-  .company-list button.option.active{
-    background:var(--soft-orange);
-    border-color:#F0C69E;
-    color:#7A4515;
-  }
-
-  .handoff{
-    margin-top:14px;
-    padding:13px;
-    border-radius:10px;
-    background:var(--soft-orange);
-    border:1px solid #F7D9BE;
-    display:none;
-  }
-  .handoff.show{display:block}
-  .handoff strong{
-    display:block;
-    color:#7A4515;
-    margin-bottom:4px;
-    font-size:14px;
-  }
-  .handoff p{
-    margin:0;
-    color:#8A6649;
-    font-size:12px;
-    line-height:1.45;
-  }
-
-  .path{
-    margin-top:14px;
-    padding:11px 13px;
-    background:#FAFCFE;
-    border:1px solid var(--line);
-    border-radius:10px;
-    color:var(--muted);
-    font-size:12px;
-  }
-  .path b{color:var(--geojit-dark)}
-
-  .footer{
-    margin-top:12px;
-    text-align:center;
-    color:var(--muted);
-    font-size:11px;
-  }
-
-  @media(max-width:1100px){
-    .journey{grid-template-columns:repeat(4,1fr)}
-    .step:nth-child(4)::after{display:none}
-    .selector{grid-template-columns:1fr}
-    .col{border-right:none;border-bottom:1px solid var(--line)}
-    .col:last-child{border-bottom:none}
-  }
-
-  @media(max-width:650px){
-    .page{padding:14px}
-    header h1{font-size:26px}
-    .journey{grid-template-columns:repeat(2,1fr)}
-    .step:nth-child(even)::after{display:none}
-    .main-head{align-items:flex-start;flex-direction:column}
-  }
+@media(max-width:1050px){
+  .journey{grid-template-columns:repeat(4,1fr)}
+  .jstep:nth-child(4)::after{display:none}
+  .selector{grid-template-columns:1fr}
+  .col{border-right:none;border-bottom:1px solid var(--line);min-height:auto}
+  .col:last-child{border-bottom:none}
+}
+@media(max-width:650px){
+  .page{padding:14px}
+  header h1{font-size:25px}
+  .journey{grid-template-columns:repeat(2,1fr)}
+  .jstep:nth-child(even)::after{display:none}
+  .card-head,.details-top{align-items:flex-start;flex-direction:column}
+  .handoff-pill{white-space:normal}
+}
 </style>
 </head>
 <body>
 <div class="page">
 
-  <header>
-    <h1>Norka Sherpa – Insurance User Journey</h1>
-    <p>Select insurance type → choose category → select insurer → continue on insurer DIY platform</p>
-  </header>
+<header>
+  <h1>Norka Sherpa – Insurance User Journey</h1>
+  <p>Insurance type → category → company → insurer DIY platform</p>
+</header>
 
-  <section class="journey" aria-label="Journey">
-    <div class="step"><small>Norka Sherpa</small><strong>Login</strong></div>
-    <div class="step"><small>Norka Sherpa</small><strong>Insurance</strong></div>
-    <div class="step"><small>Norka Sherpa</small><strong>Select Type</strong></div>
-    <div class="step"><small>Norka Sherpa</small><strong>Select Category</strong></div>
-    <div class="step"><small>Norka Sherpa</small><strong>Select Company</strong></div>
-    <div class="step external"><small>Insurer DIY</small><strong>Profile & KYC</strong></div>
-    <div class="step external"><small>Insurer DIY</small><strong>Payment</strong></div>
-    <div class="step external"><small>Insurer DIY</small><strong>Confirmation</strong></div>
-  </section>
+<section class="journey">
+  <div class="jstep"><small>Norka Sherpa</small><strong>Login</strong></div>
+  <div class="jstep"><small>Norka Sherpa</small><strong>Insurance</strong></div>
+  <div class="jstep"><small>Norka Sherpa</small><strong>Select Type</strong></div>
+  <div class="jstep"><small>Norka Sherpa</small><strong>Select Category</strong></div>
+  <div class="jstep"><small>Norka Sherpa</small><strong>Select Company</strong></div>
+  <div class="jstep external"><small>Insurer DIY</small><strong>Profile & KYC</strong></div>
+  <div class="jstep external"><small>Insurer DIY</small><strong>Payment</strong></div>
+  <div class="jstep external"><small>Insurer DIY</small><strong>Confirmation</strong></div>
+</section>
 
-  <section class="main">
-    <div class="main-head">
-      <h2>Explore the Insurance Journey</h2>
-      <span>Choose from left to right</span>
-    </div>
-
-    <div class="selector">
-
-      <div class="col">
-        <div class="label">1 · Insurance Type</div>
-        <div id="typeList" class="type-list"></div>
-      </div>
-
-      <div class="col">
-        <div class="label">2 · Insurance Category</div>
-        <div id="categoryList" class="category-list"></div>
-      </div>
-
-      <div class="col">
-        <div class="label">3 · Insurance Company</div>
-        <div id="companyList" class="company-list"></div>
-
-        <div id="handoff" class="handoff">
-          <strong id="handoffTitle">Continue to insurer DIY website</strong>
-          <p>Detailed profile, plan selection, KYC and payment are completed on the selected insurer's platform.</p>
-        </div>
-
-        <div id="path" class="path"></div>
-      </div>
-
-    </div>
-  </section>
-
-  <div class="footer">
-    Norka Sherpa helps users discover and select insurance; purchase completion happens on the insurer's DIY platform.
+<section class="card">
+  <div class="card-head">
+    <h2>Explore Insurance</h2>
+    <span>Select from left to right</span>
   </div>
+
+  <div class="selector">
+    <div class="col">
+      <div class="label">1 · Insurance Type</div>
+      <div id="types" class="list"></div>
+    </div>
+
+    <div class="col">
+      <div class="label">2 · Insurance Category</div>
+      <div id="categories" class="list"></div>
+    </div>
+
+    <div class="col">
+      <div class="label">3 · Insurance Company</div>
+      <div id="companies" class="list"></div>
+      <div id="path" class="path"></div>
+    </div>
+  </div>
+</section>
+
+<section id="details" class="details">
+  <div class="details-top">
+    <div>
+      <div class="eyebrow">Selected Insurance</div>
+      <h3 id="detailTitle"></h3>
+    </div>
+    <div class="handoff-pill">Next: Continue on insurer DIY website →</div>
+  </div>
+  <div id="products" class="products"></div>
+  <div class="source-note">
+    Policy product names and feature points shown here are taken from the attached PRODUCT LIST workbook.
+  </div>
+</section>
 
 </div>
 
 <script>
-const insuranceData = {
-  "Health": {
-    "Health Insurance": ["ICICI Lombard", "Bajaj Allianz"],
-    "Critical Illness": ["ICICI Lombard"]
-  },
-  "General": {
-    "Motor Insurance": ["ICICI Lombard", "Bajaj Allianz"],
-    "Travel Insurance": ["ICICI Lombard", "Bajaj Allianz"],
-    "Cyber Security Insurance": ["ICICI Lombard", "Bajaj Allianz"],
-    "Home Insurance": ["ICICI Lombard", "Bajaj Allianz"],
-    "Fire Insurance": ["Bajaj Allianz"],
-    "Pet Insurance": ["ICICI Lombard"],
-    "Weather Insurance": ["Bajaj Allianz"]
-  },
-  "Term / Life": {
-    "Term Insurance": ["Bajaj Life"],
-    "Saving Plan": ["Bajaj Life"],
-    "Annuity Plan": ["Bajaj Life"],
-    "Pension Plan": ["ICICI Prudential Life"],
-    "ULIP Plan": ["ICICI Prudential Life"]
-  }
-};
+const DATA = {"Health": {"Critical Illness": {"ICICI Lombard": [{"product": "SHERPA Criti Shield", "features": ["Critical Illness & Personal Accident Insurance", "Financial protection against specified Critical Illnesses.", "Comprehensive Personal Accident Cover for accidental death and disability.", "Designed to provide financial support during major health contingencies."]}]}, "Health Insurance": {"ICICI Lombard": [{"product": "HS360 Health Insurance", "features": ["Comprehensive Health Protection with Enhanced Benefits", "Cumulative Bonus (CB) of 10% of Sum Insured (SI) for every claim-free year, up to 100% of SI.", "Coverage for Hypertension (HTN), Diabetes Mellitus (DM), and Ischemic Heart Disease (IHD) after a waiting period of 90 days.", "24x7 Tele-Consultation Services available.", "Pharmacy Reimbursement ranging from ₹2,000 to ₹4,000 (as per policy terms).", "Unlimited Restore Benefit for replenishment of the sum insured.", "Coverage for AYUSH treatments up to the Sum Insured.", "No capping on Pre-Existing Diseases (PED) after completion of the applicable waiting period.", "Complimentary Term Life Cover included."]}, {"product": "ELEVATE HER", "features": ["Specialized Women's Health Insurance Solution", "Coverage for:", "Maternity Expenses", "IVF Treatments", "Assisted Reproductive Treatments (ART)", "Other reproductive health-related procedures", "Daily access to Gynecologist Consultation Services.", "NRI Discount up to 25%.", "CIBIL Score-Based Discount up to 5%."]}, {"product": "Group Income Protect 33CI +AD+PTD Plan", "features": ["The quote is applicable for Non-Loan linked proposals only.", "Rates applicable for age band 18 to 55 years (Flat premium INR. 629/- without tax for 1 lac Sum Insured)", "Waiting period of 90 days and Survival period of 0 days applicable", "Maximum SI allowed is 25 lakhs", "The master policy term should be of (T+1) years (where T is the policy term for individual cover).", "Kindly note that the insured should be the direct customers of the group administrator and a minimum of 7 lives is required.", "No PED will be covered.", "The given quote is valid for 30 days from today .", "The quote is subject to revision on account of adverse experience.", "The quote is exclusive of GST", "Subject to terms & conditions of the product"]}], "Bajaj Allianz": [{"product": "Health Insurance", "features": ["Health insurance protection", "Personal Accident (PA) coverage", "Critical illness coverage", "OPD (Out-Patient Department) coverage", "Exclusive coverage for NRIs under a single premium plan, providing Health Protection, Critical Illness Cover, and Personal Accident Coverage for their family"]}]}}, "General": {"Cyber Security Insurance": {"ICICI Lombard": [{"product": "Retail Cyber Liability", "features": ["Protection Against Digital Risks", "Coverage against cyber threats and online fraud.", "Financial protection for losses arising from cyber incidents.", "Assistance for identity theft and cyber-related liabilities."]}], "Bajaj Allianz": [{"product": "Cyber Insurance (for Individuals and Corporates)", "features": ["Theft of funds digital", "Identity theft", "Cyber bullying ,cyber stocking and lose of reputation", "Privacy breach and data breach by third party", "Online shopping"]}]}, "Fire Insurance": {"Bajaj Allianz": [{"product": "Bharat Laghu Udyam Suraksha (Fire and Burglary Insurance for Business Entities)", "features": ["A). Protection for Business Assets", "Covers buildings, plant & machinery, stock, furniture, fixtures, and other business assets against insured perils.", "B). Fire & Allied Perils Cover", "Protection against:", "Fire", "Explosion/Implosion", "Lightning", "Earthquake", "Flood, Storm, Cyclone", "Riot, Strike & Malicious Damage", "Terrorism and other specified perils.", "C). In-Built Coverage Benefits", "Debris removal expenses", "Architect, surveyor & consulting engineer fees", "Start-up expenses after loss", "Temporary removal of stocks", "Coverage for money, business documents, and electronic data (subject to limits).", "D). Automatic Cover for Additions & Alterations", "Newly acquired assets, additions, alterations, or extensions are covered up to specified limits during the policy period."]}, {"product": "Commerical package Insurance", "features": ["Suitable for various types of businesses", "Fire insurance coverage", "Protection against natural calamities, including earthquakes", "Burglary coverage", "Special premium discounts available"]}]}, "Home Insurance": {"ICICI Lombard": [{"product": "Complete Home Protect", "features": ["Comprehensive Home Insurance Solution", "Coverage for Alternate Rental Accommodation in case the home becomes uninhabitable.", "Protection for Solar Panels against accidental damage.", "Coverage for Jewellery up to 10% of the Sum Insured.", "Includes Pet Care Benefits.", "Protection against various home-related risks and unforeseen events."]}], "Bajaj Allianz": [{"product": "Bharat Griha Raksha (Home Insurance)", "features": ["Building coverage Fire and explosion", "Earthquake", "Flood, cyclone, storm, and inundation", "Landslide and rockslide", "Riots, strikes, and malicious damage", "Impact damage from vehicles or falling trees", "Bush and forest fire", "Covers household contents such as furniture, appliances, electronics, clothing, kitchen equipment, and other personal belongings kept inside the home.", "Burglary protection", "Coverage for valuables and jewellery", "Long-Term Protection Up to 10 Years"]}]}, "Motor Insurance": {"ICICI Lombard": [{"product": "Motor Insurance", "features": ["Extensive Vehicle Protection with Attractive Discounts", "Up to 7 years Nil Depreciation (Nil Dep) and Bumper-to-Bumper (B2B) Cover.", "Vehicles with 75% No Claim Bonus (NCB) can avail substantial discounts on Own Damage (OD) premiums.", "40% discount for non-NCB vehicles.", "Standalone OD Policy:", "Up to 80% discount with NCB.", "Up to 65% discount without NCB.", "Pay As You Use discount option available for low-mileage customers."]}], "Bajaj Allianz": [{"product": "Private Car Insurance", "features": ["Nil Depreciation coverage for vehicles up to 12 years old under Echo sure Protection ( Encourages the use of restored/reconditioned parts, helping reduce environmental impact and repair expenses )", "Depreciation waive off and consumables covered", "NRI discount up to 70%"]}]}, "Pet Insurance": {"ICICI Lombard": [{"product": "PET CARE INSURANCE", "features": ["Dedicated Protection for Your Pets", "Coverage for veterinary treatments and medical expenses.", "Financial support for pet healthcare needs.", "Designed to ensure comprehensive well-being of pets."]}]}, "Travel Insurance": {"ICICI Lombard": [{"product": "Trip Secure", "features": ["Comprehensive Travel Insurance", "Coverage for:", "Medical Emergencies", "Baggage Loss", "Theft and Burglary", "Passport Loss", "Flight Delays", "Missed Connecting Flights", "Multi-Trip Coverage available under a single policy.", "Coverage for specified Pre-Existing Diseases (PED) as per policy terms.", "Suitable for frequent domestic and international travelers."]}], "Bajaj Allianz": [{"product": "Travel Insurance", "features": ["Comprehensive Medical Coverage", "Legal liability coverage", "Loss of Baggage & Passport", "Trip Cancellation & Trip Delay Protection", "Personal Accident Cover", "Personal Liability Cover", "Policy duration can be extended up to 1 year"]}]}, "Weather Insurance": {"Bajaj Allianz": [{"product": "Parametric Insurance", "features": ["Covers measurable parameters such as:", "Excess/Deficit Rainfall", "Dry Spells", "High/Low Temperature", "Humidity", "Fog", "Other predefined measurable weather events", "Available for both individuals and groups", "Designed to provide financial protection against adverse climate conditions and weather-related disruptions", "Once the predefined trigger is met, payouts can be processed automatically without extensive claim documentation"]}]}}, "Term / Life": {"Annuity Plan": {"Bajaj Life": [{"product": "GPG-Annuity Plan", "features": ["Guaranteed Lifelong Income", "Choose Your Income Start Date", "Joint Life Option - Regular income for spouse", "Return of Purchase Price (ROP)", "Get lifelong health & wellness support with Health Management Services."]}]}, "Pension Plan": {"ICICI Prudential Life": [{"product": "NRI Pension Plan", "features": ["Guaranteed Lifelong Income", "Legacy for loved ones", "Waiver of Premium (available only with Joint Life policy)"]}]}, "Saving Plan": {"Bajaj Life": [{"product": "GWG- Savings Plan", "features": ["100% Guaranteed Return", "3 variants – Wealth Creation, Assured Income and Second Income", "Life Cover", "No Reinvestment Risk", "Tax Efficient Returns", "Enhanced protection through choice of riders ‎"]}]}, "Term Insurance": {"Bajaj Life": [{"product": "Etouch-Term", "features": ["High Life Cover at Affordable Premium", "Zero Cost Term Plan: Exit early & get up to 100% premiums back", "Flexible Payout: Lumpsum / Income / Lumpsum + Income", "Premium Holiday: Option to Delay 12 Months Premium", "Free Health Benefits worth up to ₹31,000/year", "Early Payout on Terminal Illness diagnosis", "Waiver of Premium on Permanent Disability / Terminal Illness"]}]}, "ULIP Plan": {"ICICI Prudential Life": [{"product": "NRI- Kid Protect", "features": ["Market linked fund growth", "10x Life insurance cover", "Choice of Funds and Portfolio Strategies", "Staggered payment based on your child’s needs", "Waiver of premium on diagnosis of Critical illness or TPD* due to accident"]}]}}};
 
 let selectedType = "Health";
-let selectedCategory = "Health Insurance";
+let selectedCategory = Object.keys(DATA[selectedType])[0];
 let selectedCompany = null;
 
-const typeList = document.getElementById("typeList");
-const categoryList = document.getElementById("categoryList");
-const companyList = document.getElementById("companyList");
-const handoff = document.getElementById("handoff");
-const handoffTitle = document.getElementById("handoffTitle");
-const path = document.getElementById("path");
+const typesEl = document.getElementById("types");
+const categoriesEl = document.getElementById("categories");
+const companiesEl = document.getElementById("companies");
+const detailsEl = document.getElementById("details");
+const productsEl = document.getElementById("products");
+const detailTitle = document.getElementById("detailTitle");
+const pathEl = document.getElementById("path");
 
-function option(text, active, click){
+function makeButton(text, active, cls, onClick){
   const b = document.createElement("button");
-  b.className = "option" + (active ? " active" : "");
+  b.className = `option ${cls}${active ? " active" : ""}`;
   b.textContent = text;
-  b.onclick = click;
+  b.onclick = onClick;
   return b;
 }
 
 function renderTypes(){
-  typeList.innerHTML = "";
-  Object.keys(insuranceData).forEach(type=>{
-    typeList.appendChild(option(type, type === selectedType, ()=>{
+  typesEl.innerHTML = "";
+  Object.keys(DATA).forEach(type => {
+    typesEl.appendChild(makeButton(type, type === selectedType, "type-option", () => {
       selectedType = type;
-      selectedCategory = Object.keys(insuranceData[type])[0];
+      selectedCategory = Object.keys(DATA[type])[0];
       selectedCompany = null;
       renderAll();
     }));
@@ -354,9 +386,9 @@ function renderTypes(){
 }
 
 function renderCategories(){
-  categoryList.innerHTML = "";
-  Object.keys(insuranceData[selectedType]).forEach(category=>{
-    categoryList.appendChild(option(category, category === selectedCategory, ()=>{
+  categoriesEl.innerHTML = "";
+  Object.keys(DATA[selectedType]).forEach(category => {
+    categoriesEl.appendChild(makeButton(category, category === selectedCategory, "", () => {
       selectedCategory = category;
       selectedCompany = null;
       renderAll();
@@ -365,32 +397,78 @@ function renderCategories(){
 }
 
 function renderCompanies(){
-  companyList.innerHTML = "";
-  handoff.classList.remove("show");
-
-  insuranceData[selectedType][selectedCategory].forEach(company=>{
-    companyList.appendChild(option(company, company === selectedCompany, ()=>{
+  companiesEl.innerHTML = "";
+  const companies = Object.keys(DATA[selectedType][selectedCategory]);
+  companies.forEach(company => {
+    companiesEl.appendChild(makeButton(company, company === selectedCompany, "company-option", () => {
       selectedCompany = company;
       renderCompanies();
-      handoffTitle.textContent = `Continue with ${company} →`;
-      handoff.classList.add("show");
+      renderDetails();
       renderPath();
     }));
   });
-
-  renderPath();
 }
 
 function renderPath(){
-  path.innerHTML =
+  pathEl.innerHTML =
     `<b>${selectedType}</b> → <b>${selectedCategory}</b>` +
-    (selectedCompany ? ` → <b>${selectedCompany}</b> → Insurer DIY` : ` → Select company`);
+    (selectedCompany ? ` → <b>${selectedCompany}</b> → DIY` : ` → Select company`);
+}
+
+function renderDetails(){
+  if(!selectedCompany){
+    detailsEl.classList.remove("show");
+    return;
+  }
+
+  const policies = DATA[selectedType][selectedCategory][selectedCompany];
+  detailTitle.textContent = `${selectedCategory} · ${selectedCompany}`;
+  productsEl.innerHTML = "";
+
+  policies.forEach((policy, idx) => {
+    const card = document.createElement("article");
+    card.className = "policy";
+
+    const head = document.createElement("div");
+    head.className = "policy-title";
+    head.innerHTML = `<strong>${policy.product}</strong><span>Policy Product</span>`;
+
+    const ul = document.createElement("ul");
+    ul.className = "features";
+
+    policy.features.forEach((feature, i) => {
+      const li = document.createElement("li");
+      li.textContent = feature;
+      if(i >= 4) li.className = "extra";
+      ul.appendChild(li);
+    });
+
+    card.appendChild(head);
+    card.appendChild(ul);
+
+    if(policy.features.length > 4){
+      const more = document.createElement("button");
+      more.className = "more";
+      more.textContent = `Show all ${policy.features.length} feature points`;
+      more.onclick = () => {
+        const expanded = ul.classList.toggle("expanded");
+        more.textContent = expanded ? "Show less" : `Show all ${policy.features.length} feature points`;
+      };
+      card.appendChild(more);
+    }
+
+    productsEl.appendChild(card);
+  });
+
+  detailsEl.classList.add("show");
 }
 
 function renderAll(){
   renderTypes();
   renderCategories();
   renderCompanies();
+  renderPath();
+  renderDetails();
 }
 
 renderAll();
