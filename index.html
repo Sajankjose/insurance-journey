@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,10 +7,10 @@
 <style>
 :root {
   --blue:#005BAC;
-  --blue-dark:#0B2F5B;
+  --blue-dark:#123D6A;
   --orange:#F58220;
-  --blue-soft:#EEF6FC;
-  --orange-soft:#FFF4E9;
+  --blue-soft:#EAF4FB;
+  --orange-soft:#FFF1E5;
   --ink:#17324D;
   --muted:#6C7F91;
   --line:#DDE7EF;
@@ -154,16 +153,16 @@ header p{
   background:#FBFDFF;
 }
 .option.active{
-  background:var(--blue-soft);
-  border-color:#94BFE1;
+  background:linear-gradient(180deg,#F8FBFE,var(--blue-soft));
+  border-color:#78ACD7;
   color:var(--blue-dark);
 }
 .type-option.active{
   border-left:4px solid var(--blue);
 }
 .company-option.active{
-  background:var(--orange-soft);
-  border-color:#F1C59E;
+  background:linear-gradient(180deg,#FFF9F4,var(--orange-soft));
+  border-color:#F2B57E;
   color:#7A4517;
 }
 
@@ -295,7 +294,7 @@ header p{
 
 <header>
   <h1>Norka Sherpa – Insurance User Journey</h1>
-  <p>Insurance type → category → company → insurer DIY platform</p>
+  <p>Insurance type → category → insurer → complete your application</p>
 </header>
 
 <section class="journey">
@@ -303,10 +302,10 @@ header p{
   <div class="jstep"><small>Norka Sherpa</small><strong>Insurance</strong></div>
   <div class="jstep"><small>Norka Sherpa</small><strong>Select Type</strong></div>
   <div class="jstep"><small>Norka Sherpa</small><strong>Select Category</strong></div>
-  <div class="jstep"><small>Norka Sherpa</small><strong>Select Company</strong></div>
-  <div class="jstep external"><small>Insurer DIY</small><strong>Profile & KYC</strong></div>
-  <div class="jstep external"><small>Insurer DIY</small><strong>Payment</strong></div>
-  <div class="jstep external"><small>Insurer DIY</small><strong>Confirmation</strong></div>
+  <div class="jstep"><small>Norka Sherpa</small><strong>Choose Insurer</strong></div>
+  <div class="jstep external"><small>Complete Application</small><strong>Complete Application</strong></div>
+  <div class="jstep external"><small>Complete Application</small><strong>Review & Pay</strong></div>
+  <div class="jstep external"><small>Complete Application</small><strong>Policy Confirmation</strong></div>
 </section>
 
 <section class="card">
@@ -327,7 +326,7 @@ header p{
     </div>
 
     <div class="col">
-      <div class="label">3 · Insurance Company</div>
+      <div class="label">3 · Insurer</div>
       <div id="companies" class="list"></div>
       <div id="path" class="path"></div>
     </div>
@@ -340,7 +339,7 @@ header p{
       <div class="eyebrow">Selected Insurance</div>
       <h3 id="detailTitle"></h3>
     </div>
-    <div class="handoff-pill">Next: Continue on insurer DIY website →</div>
+    <div class="handoff-pill">Next: Continue to Complete Your Application →</div>
   </div>
   <div id="products" class="products"></div>
   <div class="source-note">
@@ -412,7 +411,7 @@ function renderCompanies(){
 function renderPath(){
   pathEl.innerHTML =
     `<b>${selectedType}</b> → <b>${selectedCategory}</b>` +
-    (selectedCompany ? ` → <b>${selectedCompany}</b> → DIY` : ` → Select company`);
+    (selectedCompany ? ` → <b>${selectedCompany}</b> → Complete Application` : ` → Select company`);
 }
 
 function renderDetails(){
